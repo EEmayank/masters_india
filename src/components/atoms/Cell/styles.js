@@ -1,6 +1,6 @@
 import styled, { keyframes, css } from "styled-components";
 import { disableTextSelection } from "../../uikit/css";
-import { GREY } from '../../uikit/colors'
+import { GREY, WHITE } from '../../uikit/colors'
 import { BORDER_RADIUS, ZINDEX } from "../../uikit/dimensions";
 
 export const CellContainer = styled.div`
@@ -46,6 +46,8 @@ export const DropdownLabel = styled.div`
     display: flex;
     gap: 20px;
     padding: 0 10px;
+    width: 100%;
+    justify-content: space-between;
     cursor: pointer;
 `;
 
@@ -103,3 +105,9 @@ export const CellInput = styled.input`
     }
 `;
 export const CellCheckbox = styled.input``;
+
+export const HeaderCellContainer = styled.div`
+    display: flex;
+    gap: 20px;
+    color: ${WHITE}
+`;

@@ -9,7 +9,6 @@ import { AddProductRowContainer } from "./styles"
 const AddItemRow = ({data, action}) => {
 
     const commonCss = {
-        textAlign: "center",
         display: "flex",
         justifyContent: "center"
     }
@@ -33,7 +32,7 @@ const AddItemRow = ({data, action}) => {
     useEffect(() => {
         setCategories(Object.keys(categoryRelationMap));
         setSubcategories(Object.keys(subcategoryRelationMap));
-    }, [])
+    }, [categoryRelationMap, subcategoryRelationMap])
 
     const updateCategory = newCategory => {
         const relatedSubCategories = categoryRelationMap[newCategory];
@@ -53,7 +52,7 @@ const AddItemRow = ({data, action}) => {
     }
 
     return <AddProductRowContainer>
-        <Button title="Add" action={handleSaveClick} color={BLUE} />
+        <div style={{margin: "auto"}}><Button title="Add" action={handleSaveClick} color={BLUE} /></div>
         <InputCell style={commonCss} value={productName} onChange={handleProductNameChange}/>
         <DropdownCell style={commonCss} options={subcategories} selectedValue={selectedSubcategory} onChange={updateSubcategory} />
         <DropdownCell style={commonCss} options={categories} selectedValue={selectedCategory} onChange={updateCategory}/>

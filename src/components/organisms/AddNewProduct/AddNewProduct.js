@@ -5,7 +5,6 @@ import { AddNewProductContainer } from "./styles"
 const AddNewProduct = ({
     data,
     action,
-
 }) => {
   return (
     <AddNewProductContainer>
