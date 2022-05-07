@@ -2,28 +2,18 @@ import styled from "styled-components";
 
 export const InventoryPageLayout = styled.section`
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 20px auto;
     padding: 0 50px;
 
-    height: 100vh;
+    height: calc(100vh - 40px);
 
     display: grid;
-    grid-template-rows: 1fr 1fr 1fr;
-
-    border: 1px solid red;
+    grid-template-rows: max-content 1fr max-content;
+    gap: 20px;
 `;
 
-export const InventoryActionBar = styled.div`
-    border: 1px solid blue;
-`;
-
-export const InventoryTable = styled.div`
-    border: 3px solid lime;
-
-`;
-
+export const InventoryActionBar = styled.div``;
 
 export const InventoryFooter = styled.div`
     text-align: right;
-    border: 1px solid blue;
 `;

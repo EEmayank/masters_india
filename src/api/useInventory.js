@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useState } from "react";
 import { BASE_PREFIX, CATEGORY_MAP, END_POINT_PRODUCT, END_POINT_PRODUCTS, END_POINT_PRODUCTS_REMOVE, HOST, PRODUCTS, SUBCATEGORY_MAP, SUB_CATEGORIES } from "../utility/api";
 

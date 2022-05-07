@@ -18,6 +18,9 @@ export const RowContainer = styled.div`
                 font-weight: 600;
                 background-color: grey;
                 color: white;
+                top: 0;
+                position: sticky;
+                z-index: 5
             `;
         }
 
@@ -30,6 +33,4 @@ export const RowContainer = styled.div`
             background-color: ${GREY.c50};
         `;
     }}
-
-    position: ${props => props.isSticky ? "sticky" : "auto"};
 `;
