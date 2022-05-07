@@ -92,16 +92,14 @@ const dropdownCollapseAnimation = css`
 
 export const CellInput = styled.input`
     border:  none;
-    border-bottom:  1px solid grey;
-    text-align: center;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translateX(-50%) translateY(-50%);
+    border-bottom:  1px solid ${GREY.c200};
+    width: auto;
+    height: 100%;
+
+    font-size: 15px;
 
     &:focus {
         outline: none;
     }
 `;
-export const CellCheckbox = styled.input`
-`;
+export const CellCheckbox = styled.input``;

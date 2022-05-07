@@ -1,5 +1,5 @@
 // styles
-import { RowContainer } from "./styles";
+import { HeaderRowContainer } from "./styles";
 
 // components
 import Cell from "../../atoms/Cell";
@@ -8,11 +8,11 @@ import Cell from "../../atoms/Cell";
 import { ROW_TYPE_HEADING } from "../../../utility/constants";
 
 const HeaderRow = ({headersList}) => {
-    return <RowContainer isSticky type={ROW_TYPE_HEADING}>
+    return <HeaderRowContainer isSticky type={ROW_TYPE_HEADING}>
         {
             headersList.map(header => <Cell value={header}/>)
         }
-</RowContainer>;
+</HeaderRowContainer>;
 }
 
 export default HeaderRow

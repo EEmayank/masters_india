@@ -1,12 +1,18 @@
 import { useEffect, useState } from "react"
 import { RELATION_MAP_FOR_CATEGORY, RELATION_MAP_FOR_SUBCATEGORY, UNSELECTED_CATEGORY, UNSELECTED_SUBCATEGORY } from "../../../utility/common"
-import { ROW_TYPE_ADD_NEW } from "../../../utility/constants"
+import Button from "../../atoms/Button"
 import DropdownCell from "../../atoms/Cell/DropdownCell"
 import InputCell from "../../atoms/Cell/InputCell"
-import SaveCell from "../../atoms/Cell/SaveCell"
-import { RowContainer } from "./styles"
+import { BLUE } from "../../uikit/colors"
+import { AddProductRowContainer } from "./styles"
 
 const AddItemRow = ({data, action}) => {
+
+    const commonCss = {
+        textAlign: "center",
+        display: "flex",
+        justifyContent: "center"
+    }
 
     const subcategoryRelationMap = data[RELATION_MAP_FOR_SUBCATEGORY] ?? {};
     const categoryRelationMap = data[RELATION_MAP_FOR_CATEGORY] ?? {};
@@ -46,12 +52,12 @@ const AddItemRow = ({data, action}) => {
         action(productName, selectedSubcategory, selectedCategory);
     }
 
-    return <RowContainer type={ROW_TYPE_ADD_NEW}>
-        <SaveCell onClick={handleSaveClick} />
-        <InputCell value={productName} onChange={handleProductNameChange}/>
-        <DropdownCell options={subcategories} selectedValue={selectedSubcategory} onChange={updateSubcategory} />
-        <DropdownCell options={categories} selectedValue={selectedCategory} onChange={updateCategory}/>
-    </RowContainer>
+    return <AddProductRowContainer>
+        <Button title="Add" action={handleSaveClick} color={BLUE} />
+        <InputCell style={commonCss} value={productName} onChange={handleProductNameChange}/>
+        <DropdownCell style={commonCss} options={subcategories} selectedValue={selectedSubcategory} onChange={updateSubcategory} />
+        <DropdownCell style={commonCss} options={categories} selectedValue={selectedCategory} onChange={updateCategory}/>
+    </AddProductRowContainer>
 }
 
 export default AddItemRow

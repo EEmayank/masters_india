@@ -9,7 +9,7 @@ const AddNewProduct = ({
 }) => {
   return (
     <AddNewProductContainer>
-          <AddItemRow data={data} action={action}/>
+      <AddItemRow data={data} action={action}/>
     </AddNewProductContainer>
   )
 }
