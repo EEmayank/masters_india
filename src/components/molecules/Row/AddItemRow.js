@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { RELATION_MAP_FOR_CATEGORY, RELATION_MAP_FOR_SUBCATEGORY, UNSELECTED_CATEGORY, UNSELECTED_SUBCATEGORY } from "../../../utility/common"
+import { ROW_TYPE_ADD_NEW } from "../../../utility/constants"
 import DropdownCell from "../../atoms/Cell/DropdownCell"
 import InputCell from "../../atoms/Cell/InputCell"
 import SaveCell from "../../atoms/Cell/SaveCell"
@@ -45,7 +46,7 @@ const AddItemRow = ({data, action}) => {
         action(productName, selectedSubcategory, selectedCategory);
     }
 
-    return <RowContainer>
+    return <RowContainer type={ROW_TYPE_ADD_NEW}>
         <SaveCell onClick={handleSaveClick} />
         <InputCell value={productName} onChange={handleProductNameChange}/>
         <DropdownCell options={subcategories} selectedValue={selectedSubcategory} onChange={updateSubcategory} />

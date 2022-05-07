@@ -1,9 +1,9 @@
-import { CellContainer } from "./styles"
+import { CellContainer, CellInput } from "./styles"
 
 const InputCell = ({value = "", onChange}) => {
     
     return <CellContainer>
-        <input value={value} onChange={onChange} />
+        <CellInput value={value} onChange={onChange} placeholder="Enter name" />
     </CellContainer>
 }
 

@@ -1,11 +1,13 @@
 import styled from 'styled-components';
-import { ROW_TYPE_HEADING } from '../../../utility/constants';
+import { ROW_TYPE_ADD_NEW, ROW_TYPE_HEADING } from '../../../utility/constants';
+import { GREY, WHITE } from '../../uikit/colors';
 
 export const RowContainer = styled.div`
-    border: 1px solid blue;
-
     display: grid;
     grid-template-columns: 42px 1fr 1fr 1fr;
+    
+    background-color: ${WHITE};
+    transition: background-color 0.1s ease-in-out;
 
     ${({type}) => {
         if (type === ROW_TYPE_HEADING) {
@@ -17,8 +19,13 @@ export const RowContainer = styled.div`
             `;
         }
 
+        if (type === ROW_TYPE_ADD_NEW) {
+            return ``;
+        }
+
         return `
-        
+            &:hover {
+            background-color: ${GREY.c50};
         `;
     }}
 `;
