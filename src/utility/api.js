@@ -6,11 +6,14 @@ export const CATEGORY = "category";
 export const PRODUCTS = "products";
 export const CATEGORIES = "categories";
 export const SUB_CATEGORIES = "subcategories";
+export const CATEGORY_MAP = "categoryMap";
+export const SUBCATEGORY_MAP = "subcategoryMap";
 
-export const HOST = "localhost:8080";
+export const HOST = "http://localhost:8080";
 export const BASE_PREFIX = "/inventory";
 
 export const END_POINT_CATEGORIES = "/categories";
 export const END_POINT_SUBCATEGORIES = "/subcategories";
 export const END_POINT_PRODUCT = "/product";
 export const END_POINT_PRODUCTS = "/products";
+export const END_POINT_PRODUCTS_REMOVE = "/products/remove";
