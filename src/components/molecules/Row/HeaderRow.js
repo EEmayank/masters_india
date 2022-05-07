@@ -1,18 +1,21 @@
 // styles
-import { RowContainer } from "./styles";
+import { HeaderRowContainer } from "./styles";
 
 // components
-import Cell from "../../atoms/Cell";
+import HeaderCell from "../../atoms/Cell/HeaderCell";
+import TextCell from "../../atoms/Cell/TextCell";
 
 // constants
 import { ROW_TYPE_HEADING } from "../../../utility/constants";
 
-const HeaderRow = ({headersList}) => {
-    return <RowContainer isSticky type={ROW_TYPE_HEADING}>
+const HeaderRow = ({headersList, sortMethods}) => {
+
+    return <HeaderRowContainer isSticky type={ROW_TYPE_HEADING}>
+        <TextCell />
         {
-            headersList.map(header => <Cell value={header}/>)
+            headersList.map(header => <HeaderCell value={header} onClick={sortMethods[header]}/>)
         }
-</RowContainer>;
+</HeaderRowContainer>;
 }
 
 export default HeaderRow

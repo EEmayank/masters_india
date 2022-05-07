@@ -5,11 +5,10 @@ import { AddNewProductContainer } from "./styles"
 const AddNewProduct = ({
     data,
     action,
-
 }) => {
   return (
     <AddNewProductContainer>
-          <AddItemRow data={data} action={action}/>
+      <AddItemRow data={data} action={action}/>
     </AddNewProductContainer>
   )
 }

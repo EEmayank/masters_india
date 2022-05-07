@@ -3,16 +3,16 @@ import { GREY, WHITE } from '../../uikit/colors';
 import { BORDER_RADIUS } from '../../uikit/dimensions';
 
 export const ButtonContainer = styled.button`
-    background-color: ${props => props.color.c100};
+    background-color: ${props => props.color.c500};
     color: ${WHITE};
     transition: background-color 0.2s ease-in-out;
 
     &:hover {
-        background-color: ${props => props.color.c50};
+        background-color: ${props => props.color.c300};
     }
 
     &:active {
-        background-color: ${props => props.color.c200};
+        background-color: ${props => props.color.c700};
     }
 
     border: none;

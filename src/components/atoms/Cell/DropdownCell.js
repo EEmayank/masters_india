@@ -9,7 +9,7 @@ import {
     DropdownLabel 
 } from "./styles"
 
-const DropdownCell = ({options = [], selectedValue = "", onChange}) => {
+const DropdownCell = ({options = [], selectedValue = "", onChange, style}) => {
 
     const [isMenuVisible, setIsMenuVisible] = useState(false);
     const dropdownContainerRef = useRef();
@@ -23,7 +23,7 @@ const DropdownCell = ({options = [], selectedValue = "", onChange}) => {
 
     useOnClickOutside(dropdownContainerRef, collapseDropdown)
 
-    return <CellContainer>
+    return <CellContainer style={style}>
         <DropdownLabel onClick={handleDropdownClick}>
             <span>{selectedValue}</span>
             <span><DownArrow/></span>

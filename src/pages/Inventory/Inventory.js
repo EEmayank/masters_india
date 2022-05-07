@@ -1,28 +1,32 @@
 import { useEffect } from "react";
 import useInventory from "../../api/useInventory";
 import Button from "../../components/atoms/Button";
-import AddItemRow from "../../components/molecules/Row/AddItemRow";
 import AddNewProduct from "../../components/organisms/AddNewProduct";
 import Table from "../../components/organisms/Table";
-import { BLUE, RED } from "../../components/uikit/colors";
+import { RED } from "../../components/uikit/colors";
 import { Product } from "../../helpers/inventory";
 import { RELATION_MAP_FOR_CATEGORY, RELATION_MAP_FOR_SUBCATEGORY } from "../../utility/common";
-import { InventoryActionBar, InventoryFooter, InventoryPageLayout, InventoryTable } from "./styles";
+import { FIELD_TYPE_CATEGORY, FIELD_TYPE_PRODUCT, FIELD_TYPE_SUBCATEGORY } from "../../utility/constants";
+import { InventoryActionBar, InventoryFooter, InventoryPageLayout } from "./styles";
 
 const Inventory = () => {
 
     const {
        // state
        allProducts,
-       categoriesMap,
-       subcategoriesMap,
+       relationMap,
        removeProductsList,
 
        // methods
        getAllProducts,
        addNewProduct,
        handleRemoveList,
-       removeProducts
+       removeProducts,
+
+       // sorting
+       sortByName,
+       sortByCategories,
+       sortBySubcategories
     } = useInventory();
 
     // api call
@@ -36,12 +40,12 @@ const Inventory = () => {
         return;
       }
 
-      if (!categoriesMap[category]) {
+      if (!relationMap[RELATION_MAP_FOR_CATEGORY][category]) {
         alert("Category is not valid!");
         return;
       }
 
-      if (!subcategoriesMap[subcategory]) {
+      if (!relationMap[RELATION_MAP_FOR_SUBCATEGORY][subcategory]) {
         alert("Subcategory is not valid!");
         return;
       }
@@ -50,25 +54,23 @@ const Inventory = () => {
       addNewProduct(product)
   }
 
-  const addNewItemRowData = {
-    [RELATION_MAP_FOR_SUBCATEGORY]: {
-        "Laptop" : ["Electronics"],
-        "Mobile" : ["Electronics"],
-        "Tennis" : ["Sports"],
-        "Cricket" : ["Sports"]
-      },
-    [RELATION_MAP_FOR_CATEGORY]: {
-        "Electronics" : ["Laptop", "Mobile"],
-        "Sports": ["Tennis", "Cricket"]
-      }
-}
+  
+  
     
     return (
       <InventoryPageLayout>
         <InventoryActionBar>
-          <AddNewProduct data={addNewItemRowData} action={handleSave}/>
+          <AddNewProduct data={relationMap} action={handleSave}/>
         </InventoryActionBar>
-        <Table data={allProducts} handleRemoveList={handleRemoveList}/>
+        <Table 
+          data={allProducts} 
+          handleRemoveList={handleRemoveList} 
+          sortMethods={{
+            [FIELD_TYPE_PRODUCT]:  sortByName,
+            [FIELD_TYPE_CATEGORY]: sortByCategories,
+            [FIELD_TYPE_SUBCATEGORY]: sortBySubcategories
+          }}
+        />
         <InventoryFooter>
           <Button action={removeProducts} title="Delete" color={RED} isDisabled={!removeProductsList.size} />
         </InventoryFooter>

@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react"
 import { CellContainer, CellCheckbox } from "./styles"
 
-const CheckboxCell = ({id, action, isChecked}) => {
+const CheckboxCell = ({id, action = () => {}, isChecked}) => {
 
     const checkboxRef = useRef();
 

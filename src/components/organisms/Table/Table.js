@@ -7,13 +7,15 @@ import HeaderRow from "../../molecules/Row/HeaderRow";
 
 // constants
 import { ID } from "../../../utility/api";
+import { FIELD_TYPE_CATEGORY, FIELD_TYPE_PRODUCT, FIELD_TYPE_SUBCATEGORY } from "../../../utility/constants";
 
 const Table = ({
     data,
-    handleRemoveList
+    handleRemoveList,
+    sortMethods
 }) => {
     return <TableContainer>
-        <HeaderRow headersList={['', 'Products', 'Subcategory', 'Category']} />
+        <HeaderRow sortMethods={sortMethods} headersList={[FIELD_TYPE_PRODUCT, FIELD_TYPE_SUBCATEGORY, FIELD_TYPE_CATEGORY]} />
         {
             data.map (row => {
                 const rowID = row[ID];

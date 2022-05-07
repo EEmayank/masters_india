@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { BASE_PREFIX, CATEGORY_MAP, END_POINT_PRODUCT, END_POINT_PRODUCTS, END_POINT_PRODUCTS_REMOVE, HOST, PRODUCTS, SUBCATEGORY_MAP, SUB_CATEGORIES } from "../utility/api";
+import { useEffect, useState } from "react";
+import { BASE_PREFIX, CATEGORY, CATEGORY_MAP, END_POINT_PRODUCT, END_POINT_PRODUCTS, END_POINT_PRODUCTS_REMOVE, HOST, NAME, PRODUCTS, SUBCATEGORY_MAP, SUB_CATEGORIES, SUB_CATEGORY } from "../utility/api";
+import { RELATION_MAP_FOR_CATEGORY, RELATION_MAP_FOR_SUBCATEGORY } from "../utility/common";
 
 const fetchAllProductsURL = HOST + BASE_PREFIX + END_POINT_PRODUCTS;
 const removeProductsURL = HOST + BASE_PREFIX + END_POINT_PRODUCTS_REMOVE;
@@ -8,10 +9,15 @@ const addNewProductURL = HOST + BASE_PREFIX + END_POINT_PRODUCT;
 const useInventory = () => {
 
     const [allProducts, setAllProducts] = useState([]);
-    const [categoriesMap, setCategoriesMap] = useState({});
-    const [subcategoriesMap, setSubcategoriesMap] = useState({});
+    const [relationMap, setRelationMap] = useState({});
 
     const [removeProductsList, setRemoveProductsList] = useState(new Set());
+
+    const [sortToggle, setSortToggle] = useState({
+        [NAME]: false,
+        [CATEGORY]: false,
+        [SUB_CATEGORY]: false
+    })
 
     /**
      * inventory/products
@@ -32,8 +38,11 @@ const useInventory = () => {
             const subcategories_map = data[SUBCATEGORY_MAP] ?? {};
 
             setAllProducts(allProducts);
-            setCategoriesMap(categories_map);
-            setSubcategoriesMap(subcategories_map);
+            const map = {
+                [RELATION_MAP_FOR_CATEGORY]: categories_map,
+                [RELATION_MAP_FOR_SUBCATEGORY]: subcategories_map
+                }
+            setRelationMap(map);
         })
         .catch(e => {
             console.error("failed to fetch all products due to: ", e.message);
@@ -101,19 +110,47 @@ const useInventory = () => {
         })
     }
 
+    const sortByProperty = (field, toggleOrder, list) => {
+        const temp = [...list];
+        if (toggleOrder) {
+            temp.sort((a, b) => a[field].localeCompare(b[field]));
+        } else {
+            temp.sort((a, b) => b[field].localeCompare(a[field]));
+        }
+        return temp;
+    }
+
+    const sortByCategories = () => {
+        setSortToggle(old => ({...old, [CATEGORY]: !old[CATEGORY]}));
+        setAllProducts(list => [...sortByProperty(CATEGORY, sortToggle[CATEGORY], list)]);
+    }
+
+    const sortBySubcategories = () => {
+        setSortToggle(old => ({...old, [SUB_CATEGORY]: !old[SUB_CATEGORY]}));
+        setAllProducts(list => [...sortByProperty(SUB_CATEGORY, sortToggle[SUB_CATEGORY], list)]);
+    }
+
+    const sortByName = () => {
+        setSortToggle(old => ({...old, [NAME]: !old[NAME]}));
+        setAllProducts(list => [...sortByProperty(NAME, sortToggle[NAME], list)]);
+    }
 
     return {
         // state
         allProducts,
-        categoriesMap,
-        subcategoriesMap,
+        relationMap,
         removeProductsList,
 
         // methods
         getAllProducts,
         addNewProduct,
         handleRemoveList,
-        removeProducts
+        removeProducts,
+
+        // sorting
+        sortByName,
+        sortByCategories,
+        sortBySubcategories
     }
 }
 
