@@ -9,6 +9,8 @@ export const RowContainer = styled.div`
     background-color: ${WHITE};
     transition: background-color 0.1s ease-in-out;
 
+    cursor: ${props => props.isClickable ? "pointer" : "auto"};
+
     ${({type}) => {
         if (type === ROW_TYPE_HEADING) {
             return `
@@ -28,4 +30,6 @@ export const RowContainer = styled.div`
             background-color: ${GREY.c50};
         `;
     }}
+
+    position: ${props => props.isSticky ? "sticky" : "auto"};
 `;

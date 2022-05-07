@@ -6,7 +6,8 @@ import {
     CellContainer, 
     CellDropdownContainer,
     CellDropdownItem,
-    DropdownLabel } from "./styles"
+    DropdownLabel 
+} from "./styles"
 
 const DropdownCell = ({options = [], selectedValue = "", onChange}) => {
 
@@ -16,10 +17,7 @@ const DropdownCell = ({options = [], selectedValue = "", onChange}) => {
         onChange(options[index])
     }
 
-    const handleDropdownClick = () => {
-        console.log("whita")
-        setIsMenuVisible(!isMenuVisible);
-    }
+    const handleDropdownClick = () => setIsMenuVisible(!isMenuVisible);
 
     const collapseDropdown = () => setIsMenuVisible(false);
 

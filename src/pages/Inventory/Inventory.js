@@ -2,11 +2,12 @@ import { useEffect } from "react";
 import useInventory from "../../api/useInventory";
 import Button from "../../components/atoms/Button";
 import AddItemRow from "../../components/molecules/Row/AddItemRow";
+import AddNewProduct from "../../components/organisms/AddNewProduct";
 import Table from "../../components/organisms/Table";
 import { BLUE, RED } from "../../components/uikit/colors";
 import { Product } from "../../helpers/inventory";
 import { RELATION_MAP_FOR_CATEGORY, RELATION_MAP_FOR_SUBCATEGORY } from "../../utility/common";
-import { InventoryActionBar, InventoryPageLayout, InventoryTable } from "./styles";
+import { InventoryActionBar, InventoryFooter, InventoryPageLayout, InventoryTable } from "./styles";
 
 const Inventory = () => {
 
@@ -15,6 +16,7 @@ const Inventory = () => {
        allProducts,
        categoriesMap,
        subcategoriesMap,
+       removeProductsList,
 
        // methods
        getAllProducts,
@@ -30,7 +32,6 @@ const Inventory = () => {
 
     const handleSave = (productName, subcategory, category) => {
       if (productName.length < 5) {
-        console.log(productName);
         alert("Please enter a valid product name");
         return;
       }
@@ -65,13 +66,12 @@ const Inventory = () => {
     return (
       <InventoryPageLayout>
         <InventoryActionBar>
-          <Button title="Add +" color={BLUE} />
-          <Button title="Delete" color={RED} action={removeProducts}/>
+          <AddNewProduct data={addNewItemRowData} action={handleSave}/>
         </InventoryActionBar>
-          <AddItemRow data={addNewItemRowData} action={handleSave}/>
-        <InventoryTable>
-          <Table data={allProducts} handleRemoveList={handleRemoveList}/>
-        </InventoryTable>
+        <Table data={allProducts} handleRemoveList={handleRemoveList}/>
+        <InventoryFooter>
+          <Button action={removeProducts} title="Delete" color={RED} isDisabled={!removeProductsList.size} />
+        </InventoryFooter>
       </InventoryPageLayout>
     )
 }

@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { BASE_PREFIX, CATEGORY_MAP, END_POINT_PRODUCTS, END_POINT_PRODUCTS_REMOVE, HOST, PRODUCTS, SUBCATEGORY_MAP, SUB_CATEGORIES } from "../utility/api";
+import { BASE_PREFIX, CATEGORY_MAP, END_POINT_PRODUCT, END_POINT_PRODUCTS, END_POINT_PRODUCTS_REMOVE, HOST, PRODUCTS, SUBCATEGORY_MAP, SUB_CATEGORIES } from "../utility/api";
 
 const fetchAllProductsURL = HOST + BASE_PREFIX + END_POINT_PRODUCTS;
 const removeProductsURL = HOST + BASE_PREFIX + END_POINT_PRODUCTS_REMOVE;
+const addNewProductURL = HOST + BASE_PREFIX + END_POINT_PRODUCT;
 
 const useInventory = () => {
 
@@ -13,6 +14,16 @@ const useInventory = () => {
 
     const [removeProductsList, setRemoveProductsList] = useState(new Set());
 
+    /**
+     * inventory/products
+     * 
+     * reponse 
+     * categoryMap : {},
+     * subcategoryMap: {},
+     * products: [
+     *  {id, name, subcategory, category}
+     * ]
+     */
     const getAllProducts = () => {
         fetch(fetchAllProductsURL)
         .then (resp => resp.json())
@@ -31,10 +42,32 @@ const useInventory = () => {
     }
 
 
-    const addNewProduct = product => setAllProducts(oldProducts => [...oldProducts, product])
+    /**
+     *Request URL: inventory/product
+
+     * req
+     * {"product":{"name":"sdfsdf","category":"Electronics","subcategory":"Laptop"}}
+     * 
+     * resp
+     * {status: true/false}
+     */
+    const addNewProduct = product => {
+        fetch(addNewProductURL, {
+            method: "POST",
+            body: JSON.stringify({product})
+        })
+        .then(resp => resp.json())
+        .then(data => {
+            const status = data['status'] ?? false;
+            if (status) {
+                getAllProducts();
+            } else  {
+                alert("failed to add product");
+            }
+        })
+    }
 
     const handleRemoveList = (id, shouldRemove) => {
-        console.log(shouldRemove);
         if (shouldRemove) {
             return setRemoveProductsList(oldList => new Set([...oldList, id]));
         }
@@ -45,14 +78,19 @@ const useInventory = () => {
         });
     };
 
-    useEffect(() => {
-        console.log(removeProductsList);
-    }, [removeProductsList]);
-
+    /**
+     * Request URL: inventory/products/remove
+     * 
+     * req
+     * {"removeProductsList":[634,24324,4543,43423423]}
+     * 
+     * resp 
+     * {status: true/false}
+     */
     const removeProducts = () => {
         fetch(removeProductsURL, {
-            method: "POST",
-            body: JSON.stringify({removeProductsList})
+            method: "DELETE",
+            body: JSON.stringify({removeProductsList: Array.from(removeProductsList)})
         })
         .then(resp => resp.json())
         .then(data => {

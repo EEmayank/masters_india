@@ -1,5 +1,6 @@
 import styled, { keyframes, css } from "styled-components";
 import { disableTextSelection } from "../../uikit/css";
+import { GREY } from '../../uikit/colors'
 import { BORDER_RADIUS, ZINDEX } from "../../uikit/dimensions";
 
 export const CellContainer = styled.div`
@@ -12,6 +13,7 @@ export const CellContainer = styled.div`
 export const CellDropdownContainer = styled.div`
     ${disableTextSelection}
     z-index: ${ZINDEX.CELL_DROPDOWN};
+    padding: 4px 0;
 
     position: absolute;
     width: calc(100% - 20px);
@@ -19,7 +21,7 @@ export const CellDropdownContainer = styled.div`
     left: 50%;
     transform: translateX(-50%);
     background-color: white;
-    border-radius: ${BORDER_RADIUS.c10};
+    border-radius: ${BORDER_RADIUS.c5};
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     overflow: hidden;
 
@@ -29,24 +31,21 @@ export const CellDropdownContainer = styled.div`
 `;
 
 export const CellDropdownItem = styled.div`
-    text-align: center;
     ${disableTextSelection}
-    padding: 5px 5px;
+    padding: 10px 10px;
     background-color: ${props => props.isSelected ? 'lightGrey' : 'transparent'};
-    color: ${props => props.isSelected ? 'white' : 'black'};
     transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out;
-    cursor: pointer;
     &:hover {
-        background-color: grey;
-        color: white;
+        background-color: ${GREY.c100};
     }
+    cursor: pointer;
 
 `;
 
 export const DropdownLabel = styled.div`
     display: flex;
     gap: 20px;
-    justify-content: center;
+    padding: 0 10px;
     cursor: pointer;
 `;
 
@@ -105,5 +104,4 @@ export const CellInput = styled.input`
     }
 `;
 export const CellCheckbox = styled.input`
-    
 `;

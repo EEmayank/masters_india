@@ -5,6 +5,7 @@ import { BORDER_RADIUS } from '../../uikit/dimensions';
 export const ButtonContainer = styled.button`
     background-color: ${props => props.color.c100};
     color: ${WHITE};
+    transition: background-color 0.2s ease-in-out;
 
     &:hover {
         background-color: ${props => props.color.c50};
@@ -16,7 +17,7 @@ export const ButtonContainer = styled.button`
 
     border: none;
     padding: 10px 20px;
-    border-radius: ${BORDER_RADIUS.c10};
+    border-radius: ${BORDER_RADIUS.c5};
 
     cursor: pointer;
 

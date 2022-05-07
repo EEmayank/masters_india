@@ -1,11 +1,19 @@
+import { useEffect, useRef } from "react"
 import { CellContainer, CellCheckbox } from "./styles"
 
-const CheckboxCell = ({id, action}) => {
+const CheckboxCell = ({id, action, isChecked}) => {
 
-    const handleCheckboxClick = e => action(id, e.target.checked)
+    const checkboxRef = useRef();
+
+    useEffect(() => {
+        checkboxRef.current.checked = isChecked;
+        handleCheckboxClick(checkboxRef.current);
+    }, [isChecked])
+
+    const handleCheckboxClick = () => action(id, checkboxRef.current.checked)
     
     return <CellContainer>
-        <CellCheckbox onClick={handleCheckboxClick} type="checkbox" />
+        <CellCheckbox ref={checkboxRef} onClick={handleCheckboxClick} type="checkbox" />
     </CellContainer>
 }
 
